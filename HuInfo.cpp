@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <vector>
 
-//¼ì²éÓàÏÂµÄÅÆÊÇ·ñÄÜ×é³ÉË³»òÕßºá
+//æ£€æŸ¥ä½™ä¸‹çš„ç‰Œæ˜¯å¦èƒ½ç»„æˆé¡ºæˆ–è€…æ¨ª
 bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 {
 	char CardIndexTemp[MAX_INDEX] = { 0 };
@@ -16,18 +16,18 @@ bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 			continue;
 		if (CardIndexTemp[i] < 0)
 		{
-			GhostCardNeeded -= CardIndexTemp[i];  //ÒòÎªÅÆÊıÎª¸º ËùÒÔÓÃ¼õ
+			GhostCardNeeded -= CardIndexTemp[i];  //å› ä¸ºç‰Œæ•°ä¸ºè´Ÿ æ‰€ä»¥ç”¨å‡
 			CardIndexTemp[i] = 0;
 			continue;
 		}
-		if ((i >= 0 && i <= 6) || (i >= 9 && i <= 15) || (i >= 18 && i <= 24))  //Õâ¸öÅĞ¶ÏÊÇÓÃÔÚÅÆÖµÔÚ£¨1-7£©Ö®¼ä(¿ÉÒÔ×é³É[i,i+1,i+2]µÄË³×Ó)
+		if ((i >= 0 && i <= 6) || (i >= 9 && i <= 15) || (i >= 18 && i <= 24))  //è¿™ä¸ªåˆ¤æ–­æ˜¯ç”¨åœ¨ç‰Œå€¼åœ¨ï¼ˆ1-7ï¼‰ä¹‹é—´(å¯ä»¥ç»„æˆ[i,i+1,i+2]çš„é¡ºå­)
 		{
 			switch (CardIndexTemp[i])
 			{
 				case 1:
 				case 4:
 				{
-					//×é³ÉË³
+					//ç»„æˆé¡º
 					--CardIndexTemp[i + 1];
 					--CardIndexTemp[i + 2];
 					break;
@@ -38,12 +38,12 @@ bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 						|| (3 == CardIndexTemp[i + 1] && 0 == CardIndexTemp[i + 2])
 						|| (0 == CardIndexTemp[i + 1] && 3 == CardIndexTemp[i + 2]))
 					{
-						//×é³Éºá
+						//ç»„æˆæ¨ª
 						++GhostCardNeeded;
 					}
 					else
 					{
-						//×é³ÉË³
+						//ç»„æˆé¡º
 						CardIndexTemp[i + 1] -= 2;
 						CardIndexTemp[i + 2] -= 2;
 					}
@@ -55,7 +55,7 @@ bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 				}
 			}
 		}
-		else if (7 == i || 8 == i || 16 == i || 17 == i || 25 == i || 26 == i)//Õâ¸öÅĞ¶ÏÊÇÓÃÔÚÅÆÖµÔÚ£¨8-9£©Ö®¼ä(²»¿ÉÒÔ×é³É[i,i+1,i+2]µÄË³×Ó£¬¿ÉÒÔ×é³Éºá»òÕßiÎª8µÄÇé¿öÏÂ[i-1,i,i+1])
+		else if (7 == i || 8 == i || 16 == i || 17 == i || 25 == i || 26 == i)//è¿™ä¸ªåˆ¤æ–­æ˜¯ç”¨åœ¨ç‰Œå€¼åœ¨ï¼ˆ8-9ï¼‰ä¹‹é—´(ä¸å¯ä»¥ç»„æˆ[i,i+1,i+2]çš„é¡ºå­ï¼Œå¯ä»¥ç»„æˆæ¨ªæˆ–è€…iä¸º8çš„æƒ…å†µä¸‹[i-1,i,i+1])
 		{
 			switch (CardIndexTemp[i])
 			{
@@ -69,7 +69,7 @@ bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 					}
 					else
 					{
-						//Èç¹ûi+1Îª0 ÔòÖ±½Ó×é³Éºá
+						//å¦‚æœi+1ä¸º0 åˆ™ç›´æ¥ç»„æˆæ¨ª
 						GhostCardNeeded += 2;
 					}
 					break;
@@ -87,7 +87,7 @@ bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 		}
 		else
 		{
-			//×ÖÅÆºÍ·çÅÆ²»ÄÜ³ÉË³ Ö»ÄÜ×é³Éºá
+			//å­—ç‰Œå’Œé£ç‰Œä¸èƒ½æˆé¡º åªèƒ½ç»„æˆæ¨ª
 			if (CardIndexTemp[i] < 3)
 			{
 				GhostCardNeeded += (3 - CardIndexTemp[i]);
@@ -100,7 +100,7 @@ bool CheckCanContinuity(char const CardIndex[MAX_INDEX],  char GhostCount)
 		CardIndexTemp[i] = 0;
 	}
 
-	//¼ì²éĞèÒª¹íÅÆÊıÁ¿ºÍÊµ¼Ê¹íÅÆµÄÊıÁ¿
+	//æ£€æŸ¥éœ€è¦é¬¼ç‰Œæ•°é‡å’Œå®é™…é¬¼ç‰Œçš„æ•°é‡
 	if (GhostCardNeeded > GhostCount)
 	{
 		return false;
@@ -118,48 +118,48 @@ bool CheckCanHu(char const HandCard[MAX_INDEX], size_t HandCardSize,size_t Ghost
 	char TotalCount = HandCardSize + GhostCount;
 	if ((TotalCount - 2) % 3 != 0 || TotalCount > MAX_HANDCOUNT)
 	{
-		//ÅÆÊı£¬²»Âú×ã3n+2£¬»ò´óÓÚ14ÕÅ
+		//ç‰Œæ•°ï¼Œä¸æ»¡è¶³3n+2ï¼Œæˆ–å¤§äº14å¼ 
 		return false;
 	}
-	//µ±¸ÃÊÖÅÆÖĞÖ»ÓĞÍòÄÜÅÆÊ±
+	//å½“è¯¥æ‰‹ç‰Œä¸­åªæœ‰ä¸‡èƒ½ç‰Œæ—¶
 	if (TotalCount == GhostCount)
 	{
 		return true;
 	}
 	char CardIndexTemp[MAX_INDEX];
 	memcpy(CardIndexTemp, HandCard, sizeof(CardIndexTemp));
-	std::vector<char> PairsInfo;  //ÓÃÓÚ´æ·ÅËùÓĞÄÜ¹¹³ÉºúÅÆµÄ¶Ô×ÓµÄÖµ
-	char CheckZero = ((GhostCount < 2) ? 2 : 0);//(0-Î´¼ì²é 1-³É¹¦ 2-Ê§°Ü )
-	//1.°ÑÊÖÅÆÖĞµÄÃ¿Ò»ÕÅµ±×ö¶Ô×Ó£¨½«ÅÆ£©£¬È»ºó¼ì²éÓàÏÂµÄÅÆÊÇ·ñÄÜ´ïµ½ºúÅÆÌõ¼ş(×é³ÉË³×Ó»òÕßºá)
+	std::vector<char> PairsInfo;  //ç”¨äºå­˜æ”¾æ‰€æœ‰èƒ½æ„æˆèƒ¡ç‰Œçš„å¯¹å­çš„å€¼
+	char CheckZero = ((GhostCount < 2) ? 2 : 0);//(0-æœªæ£€æŸ¥ 1-æˆåŠŸ 2-å¤±è´¥ )
+	//1.æŠŠæ‰‹ç‰Œä¸­çš„æ¯ä¸€å¼ å½“åšå¯¹å­ï¼ˆå°†ç‰Œï¼‰ï¼Œç„¶åæ£€æŸ¥ä½™ä¸‹çš„ç‰Œæ˜¯å¦èƒ½è¾¾åˆ°èƒ¡ç‰Œæ¡ä»¶(ç»„æˆé¡ºå­æˆ–è€…æ¨ª)
 	for (char i = 0; i < MAX_INDEX; ++i)
 	{
 		if (0 == CardIndexTemp[i])
 		{
-			//³¢ÊÔ¼ì²âÒ»´Î¹íÅÆ±ä³ÉÊÖÅÆÀïÃ»ÓĞµÄÅÆ
+			//å°è¯•æ£€æµ‹ä¸€æ¬¡é¬¼ç‰Œå˜æˆæ‰‹ç‰Œé‡Œæ²¡æœ‰çš„ç‰Œ
 			if (CheckZero == 0)  
 			{
-				//CheckZero²»Îª0ËµÃ÷¼ì²â¹ıÁË ²»ÔÙ¼ì²â
+				//CheckZeroä¸ä¸º0è¯´æ˜æ£€æµ‹è¿‡äº† ä¸å†æ£€æµ‹
 				GhostCount -= 2;
 				if (CheckCanContinuity(CardIndexTemp, GhostCount))
 				{
 					CheckZero = 1;
 					//PairsInfo.clear();
 					//PairsInfo.push_back(-1);
-					//Èç¹û±ä»»³ÉÊÖÖĞÃ»ÓĞµÄÅÆ¶¼ÄÜºúÅÆ ÔòËµÃ÷¿ÉÒÔºúÈÎÒâÅÆ£¬ÎŞĞèÔÙ¼ÌĞø¼ì²â
+					//å¦‚æœå˜æ¢æˆæ‰‹ä¸­æ²¡æœ‰çš„ç‰Œéƒ½èƒ½èƒ¡ç‰Œ åˆ™è¯´æ˜å¯ä»¥èƒ¡ä»»æ„ç‰Œï¼Œæ— éœ€å†ç»§ç»­æ£€æµ‹
 					return true;
 				}
 				else
 				{
 					CheckZero = 2;
 				}
-				//¼ì²âÊ§°Ü£¬»¹Ô­ÅÆ£¬½øĞĞÏÂÒ»ÂÖ¼ì²â
+				//æ£€æµ‹å¤±è´¥ï¼Œè¿˜åŸç‰Œï¼Œè¿›è¡Œä¸‹ä¸€è½®æ£€æµ‹
 				GhostCount += 2;
 			}
 			continue;
 		}
 		if (CardIndexTemp[i] > 4)
 		{
-			//ÅÆÊı³¬¹ı4ÕÅ
+			//ç‰Œæ•°è¶…è¿‡4å¼ 
 			return false;
 		}
 		if (CardIndexTemp[i] >= 2)
@@ -167,23 +167,23 @@ bool CheckCanHu(char const HandCard[MAX_INDEX], size_t HandCardSize,size_t Ghost
 			CardIndexTemp[i] -= 2;
 			if (CheckCanContinuity(CardIndexTemp, GhostCount))
 			{
-				//PairsInfo.push_back(i);//Èç¹ûĞèÒªÖªµÀÏêÏ¸µÄºúÄÇĞ©¶Ô×Ó£¬Ôò´Ë´¦²»Òª·µ»Ø
+				//PairsInfo.push_back(i);//å¦‚æœéœ€è¦çŸ¥é“è¯¦ç»†çš„èƒ¡é‚£äº›å¯¹å­ï¼Œåˆ™æ­¤å¤„ä¸è¦è¿”å›
 				return true;
 			}
-			//¼ì²âÊ§°Ü£¬»¹Ô­ÅÆ£¬½øĞĞÏÂÒ»ÂÖ¼ì²â
+			//æ£€æµ‹å¤±è´¥ï¼Œè¿˜åŸç‰Œï¼Œè¿›è¡Œä¸‹ä¸€è½®æ£€æµ‹
 			CardIndexTemp[i] += 2;
 		}
-		else if (GhostCount > 0)  //Ö»ÓĞÒ»ÕÅÅÆ,ÄÇÃ´¾ÍÒªÊ¹ÓÃÒ»ÕÅ¹íÅÆµÄÀ´´úÌæ
+		else if (GhostCount > 0)  //åªæœ‰ä¸€å¼ ç‰Œ,é‚£ä¹ˆå°±è¦ä½¿ç”¨ä¸€å¼ é¬¼ç‰Œçš„æ¥ä»£æ›¿
 		{
 
 			--GhostCount;
 			--CardIndexTemp[i];
 			if (CheckCanContinuity(CardIndexTemp, GhostCount))
 			{
-				//PairsInfo.push_back(i);  //Èç¹ûĞèÒªÖªµÀÏêÏ¸µÄºúÄÇĞ©¶Ô×Ó£¬Ôò´Ë´¦²»Òª·µ»Ø
+				//PairsInfo.push_back(i);  //å¦‚æœéœ€è¦çŸ¥é“è¯¦ç»†çš„èƒ¡é‚£äº›å¯¹å­ï¼Œåˆ™æ­¤å¤„ä¸è¦è¿”å›
 				return true;
 			}
-			//¼ì²âÊ§°Ü£¬»¹Ô­ÅÆ£¬½øĞĞÏÂÒ»ÂÖ¼ì²â
+			//æ£€æµ‹å¤±è´¥ï¼Œè¿˜åŸç‰Œï¼Œè¿›è¡Œä¸‹ä¸€è½®æ£€æµ‹
 			++CardIndexTemp[i];
 			++GhostCount; 
 		}
@@ -221,6 +221,6 @@ int main()
 	size_t HandCardSize = TransToIndexArrayModel(HandCard, CardIndex);
 
 	bool res =  CheckCanHu(CardIndex, HandCardSize,2);
-	printf("±¾´ÎºúÅÆ½á¹û:%d\n", res);
+	printf("æœ¬æ¬¡èƒ¡ç‰Œç»“æœ:%d\n", res);
 	return 0;
 }
